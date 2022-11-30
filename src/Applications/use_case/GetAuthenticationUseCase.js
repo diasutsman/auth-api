@@ -37,19 +37,18 @@ class GetAuthenticationUseCase {
     return data;
   }
 
-  /** 
-   * @param {String} refreshToken 
+  /**
+   * @param {String} refreshToken
    */
   async renewAccessToken(refreshToken) {
-
     // verify access token
-    const { id } = await this.#tokenManager.verifyRefreshToken(refreshToken)
-    await this.#authenticationsRepository.verifyRefreshToken(refreshToken)
+    const { id } = await this.#tokenManager.verifyRefreshToken(refreshToken);
+    await this.#authenticationsRepository.verifyRefreshToken(refreshToken);
 
     // Regenerate new accessToken with the id payload from refreshToken
     const accessToken = await this.#tokenManager.generateAccessToken({ id });
 
-    return accessToken
+    return accessToken;
   }
 
   /**

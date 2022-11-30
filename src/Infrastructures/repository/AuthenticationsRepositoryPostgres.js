@@ -25,7 +25,6 @@ class AuthenticationsRepositoryPostgres extends AuthenticationsRepository {
       text: 'SELECT token FROM authentications WHERE token = $1',
       values: [token],
     };
-    console.log(`hello ${token}`);
 
     const result = await this.#pool.query(query);
 

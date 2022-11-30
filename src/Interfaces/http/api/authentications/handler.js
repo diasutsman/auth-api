@@ -37,7 +37,7 @@ class AuthenticationsHandler {
    * @param {import('@hapi/hapi').ResponseToolkit} h
    */
   async putAuthenticationsHandler(request, h) {
-    const { refreshToken } = request.payload
+    const { refreshToken } = request.payload;
 
     /** @type {GetAuthenticationUseCase} */
     const getAuthenticationUseCase = this.#container.getInstance(GetAuthenticationUseCase.name);
@@ -48,10 +48,10 @@ class AuthenticationsHandler {
       data: {
         accessToken,
       },
-    })
+    });
 
-    response.code(200)
-    return response
+    response.code(200);
+    return response;
   }
 
   /**
@@ -59,7 +59,7 @@ class AuthenticationsHandler {
    * @param {import('@hapi/hapi').ResponseToolkit} h
    */
   async deleteAuthenticationsHandler(request, h) {
-    const { refreshToken } = request.payload
+    const { refreshToken } = request.payload;
 
     /** @type {GetAuthenticationUseCase} */
     const getAuthenticationUseCase = this.#container.getInstance(GetAuthenticationUseCase.name);
@@ -67,10 +67,10 @@ class AuthenticationsHandler {
 
     const response = h.response({
       status: 'success',
-    })
+    });
 
-    response.code(200)
-    return response
+    response.code(200);
+    return response;
   }
 }
 

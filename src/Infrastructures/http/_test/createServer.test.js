@@ -1,14 +1,12 @@
 /* eslint-disable no-undef */
+const bcrypt = require('bcrypt');
+const Jwt = require('@hapi/jwt');
 const pool = require('../../database/postgres/pool');
 const UserTableTestHelper = require('../../../../tests/UserTableTestHelper');
 const container = require('../../container');
 const createServer = require('../createServer');
 const BcryptPasswordHash = require('../../security/BcryptPasswordHash');
-const bcrypt = require('bcrypt');
-const AddUserUseCase = require('../../../Applications/use_case/AddUserUseCase');
-const UserRepositoryPostgres = require('../../repository/UserRepositoryPostgres');
 const JwtTokenManager = require('../../security/JwtTokenManager');
-const Jwt = require('@hapi/jwt');
 
 describe('HTTP server', () => {
   afterAll(async () => {
@@ -207,8 +205,8 @@ describe('HTTP server', () => {
 
       await UserTableTestHelper.addUser({
         ...requestPayload,
-        password: await new BcryptPasswordHash(bcrypt).hash('secret')
-      })
+        password: await new BcryptPasswordHash(bcrypt).hash('secret'),
+      });
       const server = await createServer(container);
 
       // Action
@@ -232,7 +230,7 @@ describe('HTTP server', () => {
       // Arrange
       /** add user to database */
       const requestPayload = {
-        refreshToken: new JwtTokenManager(Jwt).generateRefreshToken({ id: 'user-123' })
+        refreshToken: new JwtTokenManager(Jwt).generateRefreshToken({ id: 'user-123' }),
       };
 
       const server = await createServer(container);
@@ -249,7 +247,7 @@ describe('HTTP server', () => {
       expect(response.statusCode).toEqual(201);
       expect(responseJson.status).toEqual('success');
       expect(typeof responseJson.data.accessToken).toEqual('string');
-      expect(responseJson.data.accessToken).not.toEqual('')
+      expect(responseJson.data.accessToken).not.toEqual('');
     });
   });
 });
